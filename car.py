@@ -1,15 +1,10 @@
-from engine import Engine
-from battery import Battery
-from abc import ABC
+from serviceable import Serviceable
 
-class Car:
-    def __init__(self, engine_last_service_mileage, engine_current_mileage, engine_service_threshold,
-                 battery_last_service_date, battery_service_threshold):
-        self.__engine = Engine(engine_last_service_mileage, engine_current_mileage, engine_service_threshold)
-        self.__battery = Battery(battery_last_service_date, battery_service_threshold)
-    
+
+class Car(Serviceable):
+    def __init__(self, engine, battery):
+        self.engine = engine
+        self.battery = battery
+
     def needs_service(self):
-        if self.__engine.needs_service() or self.__battery.needs_service():
-            return True
-        else:
-            return False
+        return self.engine.needs_service() or self.battery.needs_service()
